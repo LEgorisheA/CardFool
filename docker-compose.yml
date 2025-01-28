@@ -1,0 +1,19 @@
+version: "4"
+
+services:
+
+  database:
+    image: ./database
+    container_name: database
+    hostname: super_tg_bot
+    ports:
+      - 8191:8191
+    volumes:
+      - ./database_data:/database_data
+    command: [ "tail", "-f", "/dev/null" ]  # Keeps the container running
+
+  bot:
+    image: .
+    depends_on:
+      - database
+    container_name: bot
